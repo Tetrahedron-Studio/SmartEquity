@@ -47,7 +47,7 @@ contract EquityToken is ERC20, Ownable {
         require(ICertificate(certificate).verify(to));
     }
 
-    function transfer(address to, uint256 value) external override onlyOwner returns (bool) {
+    function transfer(address to, uint256 value) public override onlyOwner returns (bool) {
         /**
          * @notice only Owner can transfer tokens, Owner will most likely chief or admin contract
          */
@@ -67,7 +67,7 @@ contract EquityToken is ERC20, Ownable {
         return true;
     }
 
-    function transferFrom(address from, address to, uint256 value) external override onlyOwner returns (bool) {
+    function transferFrom(address from, address to, uint256 value) public override onlyOwner returns (bool) {
         address spender = _msgSender();
         beforeTransfer(to);
         _spendAllowance(from, spender, value);
