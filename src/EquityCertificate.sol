@@ -3,6 +3,7 @@ pragma solidity ^0.8.28;
 
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {EquityToken} from "./EquityToken.sol";
 
 contract EquityCertificate is ERC721, Ownable {
     /**
@@ -34,6 +35,8 @@ contract EquityCertificate is ERC721, Ownable {
     }
     //destroy token
     function burn(address owner) external authorized {
+        //ensure the owner balance = 0
+        require(EquityToken(msg.sender).balanceOf(owner) == 0);
         _burn(tokenIdOf(owner));
     }
 }
