@@ -1,3 +1,3 @@
-# EquiFutures
+# Smart Equity
 
-**A protocol bringing startup equity onchain**
+**A library for bringing startup equity onchain**
