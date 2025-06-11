@@ -17,7 +17,8 @@ contract EquityCertificate is ERC721, Ownable {
     //mapping for authorized addresses
     mapping(address => bool) isAuthorized;
     //modifier for authorized address
-    modifier authorized {
+
+    modifier authorized() {
         require(isAuthorized[msg.sender] || msg.sender == owner());
         _;
     }
@@ -34,6 +35,7 @@ contract EquityCertificate is ERC721, Ownable {
         isAuthorized[x] = true;
     }
     //destroy token
+
     function burn(address owner) external authorized {
         //ensure the owner balance = 0
         require(EquityToken(msg.sender).balanceOf(owner) == 0);
