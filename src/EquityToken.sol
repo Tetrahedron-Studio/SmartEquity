@@ -15,6 +15,11 @@ contract EquityToken is ERC20, Ownable {
     //for equity tokens are terminated
     event EquityTerminated(address indexed holder, uint256 indexed amount);
 
+     modifier authorized {
+        require(msg.sender == address(this) || msg.sender == owner());
+        _;
+    }
+
     constructor(string memory name, string memory symbol, address _certificate)
         ERC20(name, symbol)
         Ownable(msg.sender)
@@ -62,7 +67,7 @@ contract EquityToken is ERC20, Ownable {
         return true;
     }
 
-    function transferFrom(address from, address to, uint256 value) public override returns (bool) {
+    function transferFrom(address from, address to, uint256 value) public override onlyOwner returns (bool) {
         address spender = _msgSender();
         beforeTransfer(to);
         _spendAllowance(from, spender, value);
