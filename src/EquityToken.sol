@@ -15,7 +15,7 @@ contract EquityToken is ERC20, Ownable {
     //for equity tokens are terminated
     event EquityTerminated(address indexed holder, uint256 indexed amount);
 
-    constructor(string memory name, string memory symbol, uint256 supply, address _certificate)
+    constructor(string memory name, string memory symbol, address _certificate)
         ERC20(name, symbol)
         Ownable(msg.sender)
     {
@@ -23,9 +23,7 @@ contract EquityToken is ERC20, Ownable {
          * @dev The chief or admin contract should be the one to deploy the equity token
          *         @param name The name of the equity token
          *         @param symbol The symbol of the equity token
-         *         @param supply of the equity token to be minted
          */
-        _mint(address(this), supply * 10 ** decimals());
         certificate = _certificate;
     }
 
@@ -69,7 +67,7 @@ contract EquityToken is ERC20, Ownable {
         beforeTransfer(to);
         _spendAllowance(from, spender, value);
         _transfer(from, to, value);
-        burn(from);
+        burnCertificate(from);
         return true;
     }
 
@@ -78,14 +76,14 @@ contract EquityToken is ERC20, Ownable {
         _mint(owner(), amount * 10 ** decimals());
     }
 
-    function burn(address holder, uint256 amount) internal {
+    function burnShares(address holder, uint256 amount) internal {
         //Teminate/burn equity tokens
         _burn(holder, amount);
-        burn(holder);
+        burnCertificate(holder);
         emit EquityTerminated(holder, amount);
     }
 
-    function burn(address holder) internal {
+    function burnCertificate(address holder) internal {
         //terminate equity certificate
         if (balanceOf(holder) == 0) {
             ICertificate(certificate).burn(holder);

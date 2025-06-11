@@ -13,6 +13,13 @@ contract EquityCertificate is ERC721, Ownable {
 
     //address -> tokenId
     mapping(address => uint256) public tokenIDs;
+    //mapping for authorized addresses
+    mapping(address => bool) isAuthorized;
+    //modifier for authorized address
+    modifier authorized {
+        require(isAuthorized[msg.sender] || msg.sender == owner());
+        _;
+    }
 
     constructor(string memory name, string memory symbol) ERC721(name, symbol) Ownable(msg.sender) {}
 
@@ -21,8 +28,12 @@ contract EquityCertificate is ERC721, Ownable {
         return tokenIDs[owner];
     }
 
+    //this functions gives addresses authorization
+    function authorize(address x) external onlyOwner {
+        isAuthorized[x] = true;
+    }
     //destroy token
-    function burn(address owner) external {
+    function burn(address owner) external authorized {
         _burn(tokenIdOf(owner));
     }
 }
