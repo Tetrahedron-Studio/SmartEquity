@@ -8,7 +8,7 @@
 Primary Responsibility:
 Represents startup shares/equity tokens with transfer restrictions
 
-**Key Features:**
+**Key **Features:****
 
     Mintable, burnable, pausable
 
@@ -23,7 +23,7 @@ Represents startup shares/equity tokens with transfer restrictions
 Primary Responsibility:
 Shareholder identity and access control system
 
-**Key Features:**
+**Key **Features:****
 
     Non-transferable shareholder badges
 
@@ -38,7 +38,7 @@ Shareholder identity and access control system
 Primary Responsibility:
 Token reservation and distribution for employee incentives
 
-**Key Features:**
+**Key **Features:****
 
     Holds reserved tokens for employees
 
@@ -53,7 +53,7 @@ Token reservation and distribution for employee incentives
 Primary Responsibility:
 Individual employee equity grants with vesting
 
-**Key Features:**
+**Key **Features:****
 
     Vesting schedules (cliff, duration, start)
 
@@ -68,7 +68,7 @@ Individual employee equity grants with vesting
 Primary Responsibility:
 On-chain Simple Agreement for Future Equity
 
-**Key Features:**
+**Key **Features:****
 
     Investment fund management
 
@@ -83,7 +83,7 @@ On-chain Simple Agreement for Future Equity
 Primary Responsibility:
 Debt-to-equity conversion instruments
 
-**Key Features:**
+**Key **Features:****
 
     Interest accrual calculations
 
@@ -98,7 +98,7 @@ Debt-to-equity conversion instruments
 Primary Responsibility:
 Real-time ownership tracking and dilution management
 
-**Key Features:**
+**Key **Features:****
 
      Shareholder mapping and balances
 
@@ -113,7 +113,7 @@ Real-time ownership tracking and dilution management
 Primary Responsibility:
 System administration and role management
 
-**Key Features:**
+**Key **Features:****
 
     Multi-signature governance
 
@@ -128,7 +128,7 @@ System administration and role management
 Primary Responsibility:
 Centralized vesting logic and schedule management
 
-**Key Features:**
+**Key **Features:****
 
     Unified vesting calculations
 
@@ -144,12 +144,13 @@ Centralized vesting logic and schedule management
 ### 🔹 A. Pre-Seed / Founder Stage
 
 **Initial Deployment Sequence:**
-1. Deploy core infrastructure contracts (EquityToken, SoulboundNFT, Governance)
-2. Mint initial equity tokens to founders
-3. Founders automatically receive SoulboundNFTs upon token receipt
-4. Deploy OptionPool contract with initial allocation (10-20% of total supply)
-5. Establish governance structure and admin roles
-6. Configure transfer restrictions and compliance parameters
+1.Admin contract is deployed
+2. Admin contract deploys core infrastructure contracts (EquityToken, SoulboundNFT, Governance)
+3. Admin contract mints initial equity tokens to founders
+4. Admin contract mints Equity Certificate NFT to founders 
+5. Admin contract deploys OptionPool contract with initial allocation (10-20% of total supply)
+6. Admin contract establishes governance structure and admin roles
+7. Admin contract configures transfer restrictions and compliance parameters
 
 **Key Outcomes:**
 - Founders hold majority equity with SoulboundNFT access
@@ -216,60 +217,57 @@ Centralized vesting logic and schedule management
 ### Smart Contract Specifications
 
 #### **EquityToken (Enhanced ERC20)**
-solidity
-Features:
-• Mintable with governance controls
-• Burnable for token reduction scenarios  
-• Pausable for emergency situations
-• Transfer restrictions via SoulboundNFT gating
-• Automatic NFT minting/burning on balance changes
-• Compliance hooks for regulatory requirements
-• Event emission for external cap table systems
+
+**Features:**
+- Mintable with governance controls
+- Burnable for token reduction scenarios  
+- Pausable for emergency situations
+- Transfer restrictions via SoulboundNFT gating
+- Automatic NFT burning on balance changes
+- Compliance hooks for regulatory requirements
+- Event emission for external cap table systems
 
 
 #### **SoulboundNFT (Access Control)**
-solidity
-Features:
-• Non-transferable shareholder identification
-• Automatic minting on first equity token receipt
-• Automatic burning when equity balance reaches zero
-• Metadata storage for shareholder information
-• Integration with compliance and KYC systems
-• Batch operations for efficiency
+ **Features:**
+- Non-transferable shareholder identification
+- Metadata storage for shareholder information
+- Integration with compliance and KYC systems
+- Batch operations for efficiency
 
 
 #### **Advanced SAFE Contract**
-solidity
-Features:
-• Multiple investment rounds support
-• Complex cap and discount calculations
-• Pro-rata rights management
-• Liquidation preference handling
-• Most Favored Nation (MFN) clauses
-• Automatic conversion trigger detection
-• Investor rights and information rights
+
+**Features:**
+- Multiple investment rounds support
+- Complex cap and discount calculations
+- Pro-rata rights management
+- Liquidation preference handling
+- Most Favored Nation (MFN) clauses
+- Automatic conversion trigger detection
+- Investor rights and information rights
 
 
 #### **Enhanced ConvertibleNote Contract**
-solidity
-Features:
-• Compound interest calculations
-• Multiple maturity scenarios
-• Early repayment discounts
-• Conversion rate negotiations
-• Security and subordination handling
-• Default and acceleration clauses
+
+**Features:**
+- Compound interest calculations
+- Multiple maturity scenarios
+- Early repayment discounts
+- Conversion rate negotiations
+- Security and subordination handling
+- Default and acceleration clauses
 
 
 #### **Comprehensive CapTableManager**
-solidity
-Features:
-• Real-time ownership percentage calculations
-• Dilution impact analysis
-• Waterfall distribution modeling
-• Voting power calculations
-• Dividend distribution logic
-• Shareholder communication systems
+
+**Features:**
+- Real-time ownership percentage calculations
+- Dilution impact analysis
+- Waterfall distribution modeling
+- Voting power calculations
+- Dividend distribution logic
+- Shareholder communication systems
 
 
 ---
