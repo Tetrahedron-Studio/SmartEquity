@@ -81,14 +81,14 @@ contract EquityToken is ERC20, Ownable {
         _mint(owner(), amount * 10 ** decimals());
     }
 
-    function burnShares(address holder, uint256 amount) internal {
+    function burnShares(address holder, uint256 amount) internal authorized {
         //Teminate/burn equity tokens
         _burn(holder, amount);
         burnCertificate(holder);
         emit EquityTerminated(holder, amount);
     }
 
-    function burnCertificate(address holder) internal {
+    function burnCertificate(address holder) internal authorized {
         //terminate equity certificate
         if (balanceOf(holder) == 0) {
             ICertificate(certificate).burn(holder);
