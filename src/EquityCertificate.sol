@@ -3,6 +3,7 @@ pragma solidity ^0.8.28;
 
 import {ERC721URIStorage, ERC721} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
@@ -79,15 +80,15 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
      * @dev Equity Certficate is SoulBound
      */
-    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override {
+    function transferFrom(address from, address to, uint256 tokenId) public pure override(ERC721, IERC721) {
         revert("Soulbound: Certificate Transfer not possible");
     }
 
-    function approve(address to, uint256 tokenId) public override {
+    function approve(address to, uint256 tokenId) public pure override(ERC721, IERC721) {
         revert("Soulbound: Certificate Transfer approval not possible");
     }
 
-    function setApprovalForAll(address operator, bool approved) public virtual {
+    function setApprovalForAll(address operator, bool approved) public pure override(ERC721, IERC721) {
         revert("Soulbound: Certificate Transfer approval not possible");
     }
 
