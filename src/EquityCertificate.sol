@@ -44,7 +44,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
      * @dev authorize() -> gives addressauthorization, 
      */
-    function authorize(address x) external onlyAuthorized {
+    function authorize(address x) external onlyOwner {
         isAuthorized[x] = true;
     }
 
@@ -57,7 +57,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
         //ensures holders doesn't already have a certificate
         require(isHolder[holder] == false, "Holder can't hold two certificates");
         //mint certificate
-        _safeMint(holder, CertificateNum++);
+        _safeMint(holder, CertificateNum + 1);
         //update CertificateNum
         CertificateNum += 1;
         //map holder address to the certificateID
