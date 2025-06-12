@@ -56,7 +56,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
         //ensures holders doesn't already have a certificate
         require(isHolder[holder] == false, "Holder can't hold two certificates");
         //mint certificate
-        _mint(holder, CertificateNum++);
+        _safeMint(holder, CertificateNum++);
         //update CertificateNum
         CertificateNum += 1;
         //map holder address to the certificateID
@@ -75,4 +75,20 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
         _burn(tokenIdOf[holder]);
         isHolder[holder] = false;
     }
+
+    /**
+     * @dev Equity Certficate is SoulBound
+     */
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public override {
+        revert("Soulbound: Certificate Transfer not possible");
+    }
+
+    function approve(address to, uint256 tokenId) public override {
+        revert("Soulbound: Certificate Transfer approval not possible");
+    }
+
+    function setApprovalForAll(address operator, bool approved) public virtual {
+        revert("Soulbound: Certificate Transfer approval not possible");
+    }
+
 }
