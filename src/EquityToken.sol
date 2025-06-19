@@ -60,7 +60,7 @@ contract EquityToken is ERC20, Ownable {
         /**
          * @dev checks if the account holds an Equity Certificate by calling it's contract function verify() function
          */
-        require(ICertificate(certificate).verify(account));
+        require(ICertificate(certificate).verify(account), "Only Approved accounts can receive shares");
     }
 
     function transfer(address account, uint256 value) public override onlyOwner returns (bool) {
@@ -92,7 +92,6 @@ contract EquityToken is ERC20, Ownable {
          */
         //using beforeTransfer to check if the account holds certificate of equity
         beforeTransfer(to);
-        _spendAllowance(from, owner(), value);
         //transfer shares
         _transfer(from, to, value);
         //using burnCertificate() to check if address from now has 0 shares so his certificate of equity can be terminated
@@ -114,7 +113,7 @@ contract EquityToken is ERC20, Ownable {
          *  holder -> account who's shares are getting terminated
          *  amount -> amount of shares to be terminate
          */
-        //call ERC20 _burn() to specified amount of shares
+        //call ERC20 _burn() to burn specified amount of shares
         _burn(holder, amount);
         //using burnCertificate() to check if address from now has 0 shares so his certificate of equity can be terminated
         burnCertificate(holder);

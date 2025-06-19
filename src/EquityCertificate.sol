@@ -22,6 +22,16 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
      * @dev tokenIdOf -> maps holder addresss to certificateId
      */
     mapping(address => uint) public tokenIdOf;
+    /**
+     * 
+     * @dev  Mint() -> emits when certificate is minted
+     */
+    event Mint(address indexed holder, uint indexed ID);
+
+    /**
+     *@dev Burn() -> emits when certificate is burnt
+     */
+    event Burn(address indexed holder, uint indexed ID);
 
     constructor(string memory name, string memory symbol) ERC721(name, symbol) Ownable(msg.sender){}
 
@@ -51,13 +61,13 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
      * @dev mint() -> mint certificate to holder
      * @param holder -> address of holder
-     * @param details -> link to the details of the holder
+     * @param details ->  link to the details of the holder
      */
     function mint(address holder, string memory details) external onlyOwner {
         //ensures holders doesn't already have a certificate
         require(isHolder[holder] == false, "Holder can't hold two certificates");
         //mint certificate
-        _safeMint(holder, CertificateNum++);
+        _safeMint(holder, CertificateNum + 1);
         //update CertificateNum
         CertificateNum += 1;
         //map holder address to the certificateID
@@ -66,6 +76,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
         _setTokenURI(CertificateNum, details);
         //
         isHolder[holder] = true;
+        emit Mint(holder, CertificateNum);
     }
 
     /**
@@ -75,6 +86,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
         require(isHolder[holder], "holder does not hold certificate");
         _burn(tokenIdOf[holder]);
         isHolder[holder] = false;
+        emit Burn(holder, CertificateNum);
     }
 
     /**

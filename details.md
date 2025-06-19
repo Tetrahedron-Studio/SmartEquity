@@ -27,8 +27,6 @@ Shareholder identity and access control system
 
     Non-transferable shareholder badges
 
-    Auto-minted when receiving equity tokens
-
     Auto-burned when balance reaches zero
 
     Enables equity token transfers
