@@ -54,7 +54,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
      * @dev authorize() -> gives addressauthorization, 
      */
-    function authorize(address x) external onlyAuthorized {
+    function authorize(address x) external onlyOwner {
         isAuthorized[x] = true;
     }
 
