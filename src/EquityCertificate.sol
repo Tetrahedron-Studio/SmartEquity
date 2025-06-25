@@ -39,7 +39,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
      * @dev verify() -> verify that an address holds the equity certificate
      * @param holder -> address of holder
      */
-    function verify(address holder) public view returns(bool) {
+    function verify(address holder) public virtual view returns(bool) {
         return isHolder[holder];
     }
 
@@ -54,7 +54,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
      * @dev authorize() -> gives addressauthorization, 
      */
-    function authorize(address x) external onlyOwner {
+    function authorize(address x) external virtual onlyOwner {
         isAuthorized[x] = true;
     }
 
@@ -63,7 +63,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
      * @param holder -> address of holder
      * @param details ->  link to the details of the holder
      */
-    function mint(address holder, string memory details) external onlyOwner {
+    function mint(address holder, string memory details) external virtual onlyOwner {
         //ensures holders doesn't already have a certificate
         require(isHolder[holder] == false, "Holder can't hold two certificates");
         //mint certificate
@@ -82,7 +82,7 @@ contract EquityCertificate is ERC721URIStorage, Ownable {
     /**
      * @dev burn() -> burn certificate
      */
-    function burn(address holder) external onlyAuthorized {
+    function burn(address holder) external virtual onlyAuthorized {
         require(isHolder[holder], "holder does not hold certificate");
         _burn(tokenIdOf[holder]);
         isHolder[holder] = false;

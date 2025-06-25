@@ -56,7 +56,7 @@ contract EquityToken is ERC20, Ownable {
         return 0;
     }
 
-    function beforeTransfer(address account) internal {
+    function beforeTransfer(address account) internal virtual {
         /**
          * @dev checks if the account holds an Equity Certificate by calling it's contract function verify() function
          */
@@ -99,7 +99,7 @@ contract EquityToken is ERC20, Ownable {
         return true;
     }
 
-    function issue(uint256 amount) external onlyOwner {
+    function issue(uint256 amount) external virtual onlyOwner {
         /**
          * @dev issues shares to Admin Contract
          *  amount -> amount of shares to be issued
@@ -107,7 +107,7 @@ contract EquityToken is ERC20, Ownable {
         _mint(owner(), amount * 10 ** decimals());
     }
 
-    function burnShares(address holder, uint256 amount) external onlyOwner {
+    function burnShares(address holder, uint256 amount) external virtual onlyOwner {
         /**
          * @dev burnShares() -> terminate holder's shares
          *  holder -> account who's shares are getting terminated
@@ -121,7 +121,7 @@ contract EquityToken is ERC20, Ownable {
         emit EquityTerminated(holder, amount);
     }
 
-    function burnCertificate(address holder) internal {
+    function burnCertificate(address holder) internal virtual {
         /**
          * @dev burnCertificate() -> Terminates equity certificate if holder's shares == 0
          *  holder -> account whose equity might be terminated
